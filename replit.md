@@ -4,6 +4,16 @@
 
 SkillMate is a full-stack web application that provides AI-powered career coaching and skill development guidance. The platform helps users assess their current skills, identify gaps, and receive personalized recommendations for career growth through an intelligent chat interface and comprehensive dashboard.
 
+## Recent Changes
+
+**LinkedIn Integration (January 2025)**
+- Added LinkedIn OAuth 2.0 authentication and profile syncing
+- Implemented automatic skill import from LinkedIn profiles
+- Created AI-powered LinkedIn profile analysis
+- Added LinkedIn integration showcase section to landing page
+- Updated database schema to store LinkedIn tokens and profile data
+- Added comprehensive README with setup instructions and environment variables
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -123,7 +133,11 @@ Preferred communication style: Simple, everyday language.
 ### Development Environment
 - **Local Development**: Vite dev server with HMR
 - **Database**: Neon Database serverless PostgreSQL
-- **Environment Variables**: DATABASE_URL, OPENAI_API_KEY, SESSION_SECRET
+- **Environment Variables**: 
+  - Required: DATABASE_URL, OPENAI_API_KEY, SESSION_SECRET, REPL_ID, REPLIT_DOMAINS
+  - Optional: LINKEDIN_CLIENT_ID, LINKEDIN_CLIENT_SECRET, APP_URL
+- **Setup**: Run `npm install` and `npm run db:push` to initialize
+- **Documentation**: Comprehensive README.md with setup instructions
 
 ### Production Build
 - **Frontend**: Static asset generation via Vite

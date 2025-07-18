@@ -46,11 +46,11 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/">
-            <div className="flex items-center cursor-pointer">
+            <div className="flex items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg p-1" tabIndex={0} role="button" aria-label="SkillMate - Go to homepage">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
                 SM
               </div>
-              <span className="ml-2 text-xl font-bold text-neutral-dark">SkillMate</span>
+              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">SkillMate</span>
             </div>
           </Link>
 
@@ -60,12 +60,12 @@ export default function Navbar() {
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
                   <div className={cn(
-                    "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-colors",
+                    "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                     isActive(item.href)
                       ? "bg-primary text-white"
-                      : "text-gray-600 hover:text-primary hover:bg-gray-100"
-                  )}>
-                    <item.icon className="w-4 h-4" />
+                      : "text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700"
+                  )} tabIndex={0} role="button" aria-label={`Navigate to ${item.name}`}>
+                    <item.icon className="w-4 h-4" aria-hidden="true" />
                     <span>{item.name}</span>
                   </div>
                 </Link>
@@ -117,10 +117,10 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center space-x-4">
                 <Button variant="ghost" asChild>
-                  <a href="/api/login">Sign In</a>
+                  <a href="/api/login" className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md" aria-label="Sign in to your account">Sign In</a>
                 </Button>
                 <Button asChild>
-                  <a href="/api/login">Get Started Free</a>
+                  <a href="/api/login" className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md" aria-label="Get started with SkillMate for free">Get Started Free</a>
                 </Button>
               </div>
             )}
@@ -135,12 +135,12 @@ export default function Navbar() {
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <div className={cn(
-                  "flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium cursor-pointer",
+                  "flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors",
                   isActive(item.href)
                     ? "bg-primary text-white"
-                    : "text-gray-600 hover:text-primary hover:bg-gray-100"
-                )}>
-                  <item.icon className="w-5 h-5" />
+                    : "text-gray-600 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700"
+                )} tabIndex={0} role="button" aria-label={`Navigate to ${item.name}`}>
+                  <item.icon className="w-5 h-5" aria-hidden="true" />
                   <span>{item.name}</span>
                 </div>
               </Link>

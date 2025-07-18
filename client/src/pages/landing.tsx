@@ -482,9 +482,8 @@ export default function Landing() {
               <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
             </Button>
             <Button 
-              variant="outline" 
               size="lg" 
-              className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary transition-all duration-200"
+              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary transition-all duration-200"
               aria-label="Contact our sales team"
               onClick={() => {
                 // Add contact modal functionality here

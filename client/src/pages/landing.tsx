@@ -65,12 +65,17 @@ export default function Landing() {
                 size="lg" 
                 className="border-2 border-gray-300 dark:border-gray-600 px-8 py-4 text-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200"
                 aria-label="Watch product demo video"
+                onClick={() => {
+                  // Add video modal functionality here
+                  alert('Demo video functionality coming soon!');
+                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    // Add video modal functionality here
+                    alert('Demo video functionality coming soon!');
                   }
                 }}
+                tabIndex={0}
               >
                 <Video className="mr-2 w-5 h-5" aria-hidden="true" />
                 Watch Demo
@@ -479,14 +484,19 @@ export default function Landing() {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary transition-all duration-200"
+              className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-primary transition-all duration-200"
               aria-label="Contact our sales team"
+              onClick={() => {
+                // Add contact modal functionality here
+                alert('Contact Sales functionality coming soon!');
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  // Add contact modal functionality here
+                  alert('Contact Sales functionality coming soon!');
                 }
               }}
+              tabIndex={0}
             >
               Contact Sales
             </Button>

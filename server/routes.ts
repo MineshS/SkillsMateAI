@@ -15,6 +15,7 @@ import {
   insertUserProgressSchema,
   insertPortfolioProjectSchema 
 } from "@shared/schema";
+import { linkedinService } from "./services/linkedinService";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -348,6 +349,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error seeding resources:", error);
       res.status(500).json({ message: "Failed to seed resources" });
+    }
+  });
+
+  // LinkedIn Integration Routes
+  app.get('/api/linkedin/auth', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const authUrl = linkedinService.generateAuthUrl(userId);
+      res.json({ authUrl });
+    } catch (error) {
+      console.error("LinkedIn auth error:", error);
+      res.status(500).json({ message: "Failed to generate LinkedIn auth URL" });
+    }
+  });
+
+  app.get('/api/linkedin/callback', async (req, res) => {
+    try {
+      const { code, state } = req.query;
+      if (!code || !state) {
+        return res.status(400).json({ message: "Missing code or state" });
+      }
+
+      const userId = state as string;
+      await linkedinService.exchangeCodeForToken(code as string, userId);
+      
+      // Redirect to frontend with success
+      res.redirect(`${process.env.APP_URL || 'http://localhost:5000'}/?linkedin=success`);
+    } catch (error) {
+      console.error("LinkedIn callback error:", error);
+      res.redirect(`${process.env.APP_URL || 'http://localhost:5000'}/?linkedin=error`);
+    }
+  });
+
+  app.post('/api/linkedin/sync', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const result = await linkedinService.syncUserProfile(userId);
+      res.json(result);
+    } catch (error) {
+      console.error("LinkedIn sync error:", error);
+      res.status(500).json({ message: "Failed to sync LinkedIn profile" });
+    }
+  });
+
+  app.get('/api/linkedin/data', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const linkedinData = await linkedinService.getUserLinkedInData(userId);
+      res.json(linkedinData);
+    } catch (error) {
+      console.error("LinkedIn data error:", error);
+      res.status(500).json({ message: "Failed to fetch LinkedIn data" });
+    }
+  });
+
+  app.delete('/api/linkedin/disconnect', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      await linkedinService.disconnectLinkedIn(userId);
+      res.json({ message: "LinkedIn disconnected successfully" });
+    } catch (error) {
+      console.error("LinkedIn disconnect error:", error);
+      res.status(500).json({ message: "Failed to disconnect LinkedIn" });
     }
   });
 

@@ -35,6 +35,16 @@ export const users = pgTable("users", {
   experienceLevel: varchar("experience_level"),
   industry: varchar("industry"),
   resumeUrl: varchar("resume_url"),
+  // LinkedIn Integration
+  linkedinId: varchar("linkedin_id").unique(),
+  linkedinAccessToken: varchar("linkedin_access_token"),
+  linkedinRefreshToken: varchar("linkedin_refresh_token"),
+  linkedinTokenExpiry: timestamp("linkedin_token_expiry"),
+  linkedinProfileUrl: varchar("linkedin_profile_url"),
+  linkedinHeadline: varchar("linkedin_headline"),
+  linkedinSummary: text("linkedin_summary"),
+  linkedinSkills: jsonb("linkedin_skills").$type<string[]>(),
+  linkedinLastSync: timestamp("linkedin_last_sync"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

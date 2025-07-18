@@ -17,7 +17,10 @@ import {
   ArrowRight,
   Brain,
   Lightbulb,
-  Rocket
+  Rocket,
+  Link,
+  Download,
+  RefreshCw
 } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -161,6 +164,121 @@ export default function Landing() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* LinkedIn Integration Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Seamless LinkedIn Integration
+            </h2>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Connect your LinkedIn profile to automatically sync your professional experience, 
+              skills, and network connections. Let AI analyze your profile and provide personalized career insights.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* LinkedIn Integration Benefits */}
+            <div className="space-y-8">
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <RefreshCw className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Auto-Sync Your Skills
+                  </h3>
+                  <p className="text-blue-100">
+                    Automatically import your LinkedIn skills and experience. 
+                    No manual data entry required - just connect and sync.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Brain className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    AI Profile Analysis
+                  </h3>
+                  <p className="text-blue-100">
+                    Get intelligent insights about your professional profile. 
+                    Identify skill gaps and opportunities for career growth.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    Enhanced Recommendations
+                  </h3>
+                  <p className="text-blue-100">
+                    Receive more accurate career advice based on your actual LinkedIn profile data, 
+                    connections, and professional history.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* LinkedIn Integration Preview */}
+            <div className="relative">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                    <Link className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white">LinkedIn Connected</h4>
+                    <p className="text-blue-100 text-sm">Profile synced successfully</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white font-medium">Skills Imported</span>
+                      <Badge className="bg-green-500 text-white">15 skills</Badge>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge className="bg-blue-500 text-white">JavaScript</Badge>
+                      <Badge className="bg-blue-500 text-white">React</Badge>
+                      <Badge className="bg-blue-500 text-white">Node.js</Badge>
+                      <Badge className="bg-blue-500 text-white">AI/ML</Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white font-medium">Experience Level</span>
+                      <Badge className="bg-yellow-500 text-white">Senior</Badge>
+                    </div>
+                    <p className="text-blue-100 text-sm">
+                      5+ years in Software Development
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-white font-medium">Career Focus</span>
+                      <Badge className="bg-purple-500 text-white">AI/ML Engineer</Badge>
+                    </div>
+                    <p className="text-blue-100 text-sm">
+                      Transitioning to AI/ML roles
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

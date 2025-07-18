@@ -41,13 +41,14 @@ Preferred communication style: Simple, everyday language.
 - **Security**: HTTP-only cookies with secure flags
 
 ### Database Schema
-- **Users**: Profile information, career goals, experience level
+- **Users**: Profile information, career goals, experience level, LinkedIn integration data
 - **Skill Assessments**: Current vs target skill levels with priority scoring
 - **Learning Resources**: Curated content with skill associations
 - **User Progress**: Tracking learning milestones and achievements
 - **Career Goals**: Long-term objectives with progress tracking
 - **Chat Sessions**: AI conversation history and context
 - **Portfolio Projects**: User-generated or AI-recommended projects
+- **LinkedIn Data**: OAuth tokens, profile synchronization, imported skills
 
 ### AI Integration
 - **Provider**: OpenAI GPT-4o for natural language processing
@@ -57,6 +58,16 @@ Preferred communication style: Simple, everyday language.
   - Resume analysis and parsing
   - Portfolio project recommendations
 - **Context Awareness**: User profile and skill data inform AI responses
+
+### LinkedIn Integration
+- **API**: LinkedIn OAuth 2.0 authentication and profile access
+- **Features**:
+  - Automatic skill synchronization from LinkedIn profiles
+  - Professional experience import
+  - AI-powered profile analysis
+  - Enhanced career recommendations based on LinkedIn data
+- **Data Storage**: LinkedIn tokens, profile data, and skills stored securely
+- **Privacy**: User-controlled connection and disconnection
 
 ### File Upload System
 - **Storage**: Memory-based with planned cloud storage integration

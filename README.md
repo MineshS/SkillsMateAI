@@ -42,7 +42,7 @@ SkillMate is a comprehensive career development platform that provides AI-powere
 - **LinkedIn API** for profile integration
 
 ### Authentication & Security
-- **Replit Auth** with OpenID Connect
+- **Local Auth** using Passport Local strategy
 - **PostgreSQL Session Store** for secure session management
 - **OAuth 2.0** for LinkedIn integration
 - **Environment-based secrets** management
@@ -115,8 +115,6 @@ SkillMate is a comprehensive career development platform that provides AI-powere
 | `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/skillmate` |
 | `SESSION_SECRET` | Secret key for session encryption | `your-super-secret-session-key-here` |
 | `OPENAI_API_KEY` | OpenAI API key for AI features | `sk-your-openai-api-key-here` |
-| `REPL_ID` | Replit application ID for auth | `your-replit-app-id` |
-| `REPLIT_DOMAINS` | Comma-separated domains for auth | `your-app.replit.app` |
 
 ### Optional Variables
 
@@ -125,16 +123,15 @@ SkillMate is a comprehensive career development platform that provides AI-powere
 | `LINKEDIN_CLIENT_ID` | LinkedIn app client ID | `your-linkedin-client-id` |
 | `LINKEDIN_CLIENT_SECRET` | LinkedIn app client secret | `your-linkedin-client-secret` |
 | `APP_URL` | Full application URL | `https://your-app-domain.com` |
-| `ISSUER_URL` | OIDC issuer URL | `https://replit.com/oidc` |
 | `NODE_ENV` | Environment mode | `development` or `production` |
 
 ## API Endpoints
 
 ### Authentication
 - `GET /api/auth/user` - Get current user information
-- `GET /api/login` - Initiate Replit authentication
-- `GET /api/logout` - Log out current user
-- `GET /api/callback` - OAuth callback endpoint
+- `POST /api/register` - Register a new user
+- `POST /api/login` - Log in with email and password
+- `POST /api/logout` - Log out current user
 
 ### Skills & Assessments
 - `GET /api/skills/assessments` - Get user skill assessments
@@ -212,11 +209,10 @@ skillmate/
 2. **Set production environment variables**
    Ensure all required environment variables are set in your production environment.
 
-3. **Deploy to Replit**
+3. **Deploy to Your Hosting Provider**
    - Push your code to a Git repository
-   - Import the repository to Replit
-   - Set up environment variables in Replit Secrets
-   - Deploy using Replit Deployments
+   - Configure environment variables on your platform
+   - Deploy using your provider's instructions
 
 ### Environment Setup for Production
 
@@ -246,5 +242,5 @@ For support, please contact [your-email@example.com] or create an issue in the G
 
 - OpenAI for providing the GPT-4o API
 - LinkedIn for profile integration capabilities
-- Replit for authentication and hosting infrastructure
+- Example hosting providers such as Vercel or Heroku
 - The open-source community for the excellent tools and libraries used in this project

@@ -33,7 +33,7 @@ Preferred communication style: Simple, everyday language.
 - **Language**: TypeScript with ES modules
 - **Database**: PostgreSQL with Drizzle ORM
 - **Database Provider**: Neon Database (serverless PostgreSQL)
-- **Authentication**: Replit Auth with OpenID Connect
+- **Authentication**: Local Auth using Passport
 - **Session Management**: PostgreSQL-backed sessions using connect-pg-simple
 
 ### Key Design Decisions
@@ -44,8 +44,7 @@ Preferred communication style: Simple, everyday language.
 
 ## Key Components
 
-### Authentication System
-- **Provider**: Replit Auth with OIDC
+- **Provider**: Local strategy with Passport
 - **Session Storage**: PostgreSQL sessions table
 - **User Management**: Automatic user creation/updates from auth provider
 - **Security**: HTTP-only cookies with secure flags
@@ -87,7 +86,7 @@ Preferred communication style: Simple, everyday language.
 ## Data Flow
 
 ### User Onboarding
-1. User authenticates via Replit Auth
+1. User registers and logs in using local credentials
 2. Profile creation/update with career information
 3. Initial skill assessment or resume upload
 4. AI-powered skill gap analysis

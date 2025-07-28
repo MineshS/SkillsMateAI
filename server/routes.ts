@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import multer from "multer";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+import { setupAuth, isAuthenticated } from "./localAuth";
 import { processResumeUpload } from "./services/resumeAnalysis";
 import { 
   getPersonalizedCareerAdvice,
@@ -26,7 +26,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
@@ -38,7 +38,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // User profile routes
   app.put('/api/user/profile', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const updates = req.body;
       
       const user = await storage.upsertUser({
@@ -56,7 +56,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Resume upload and analysis
   app.post('/api/resume/upload', isAuthenticated, upload.single('resume'), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const file = req.file;
       
       if (!file) {
@@ -97,7 +97,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Skill assessment routes
   app.get('/api/skills/assessments', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const assessments = await storage.getSkillAssessments(userId);
       res.json(assessments);
     } catch (error) {
@@ -108,7 +108,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/skills/assessment', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const assessmentData = insertSkillAssessmentSchema.parse({
         ...req.body,
         userId,
@@ -124,7 +124,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/skills/gap-analysis', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       await generateSkillGapAnalysis(userId);
       
       const updatedAssessments = await storage.getSkillAssessments(userId);
@@ -141,7 +141,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Learning resources routes
   app.get('/api/resources', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const skillAssessments = await storage.getSkillAssessments(userId);
       
       if (skillAssessments.length === 0) {
@@ -161,7 +161,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Progress tracking routes
   app.get('/api/progress', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const progress = await storage.getUserProgress(userId);
       res.json(progress);
     } catch (error) {
@@ -172,7 +172,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/progress', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const progressData = insertUserProgressSchema.parse({
         ...req.body,
         userId,
@@ -189,7 +189,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Career goals routes
   app.get('/api/goals', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const goals = await storage.getCareerGoals(userId);
       res.json(goals);
     } catch (error) {
@@ -200,7 +200,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/goals', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const goalData = insertCareerGoalSchema.parse({
         ...req.body,
         userId,
@@ -217,7 +217,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI Career coaching routes
   app.post('/api/chat/advice', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const { question } = req.body;
       
       if (!question) {
@@ -234,7 +234,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/chat/sessions', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const sessions = await storage.getChatSessions(userId);
       res.json(sessions);
     } catch (error) {
@@ -245,7 +245,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/chat/session', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const { messages, topic } = req.body;
       
       const session = await storage.createChatSession({
@@ -264,7 +264,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Portfolio project routes
   app.get('/api/portfolio/projects', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const projects = await storage.getPortfolioProjects(userId);
       res.json(projects);
     } catch (error) {
@@ -275,7 +275,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/portfolio/generate', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       await generateUserPortfolioProjects(userId);
       
       const projects = await storage.getPortfolioProjects(userId);
@@ -355,7 +355,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // LinkedIn Integration Routes
   app.get('/api/linkedin/auth', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const authUrl = linkedinService.generateAuthUrl(userId);
       res.json({ authUrl });
     } catch (error) {
@@ -384,7 +384,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/linkedin/sync', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const result = await linkedinService.syncUserProfile(userId);
       res.json(result);
     } catch (error) {
@@ -395,7 +395,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/linkedin/data', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const linkedinData = await linkedinService.getUserLinkedInData(userId);
       res.json(linkedinData);
     } catch (error) {
@@ -406,7 +406,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.delete('/api/linkedin/disconnect', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       await linkedinService.disconnectLinkedIn(userId);
       res.json({ message: "LinkedIn disconnected successfully" });
     } catch (error) {
